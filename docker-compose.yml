@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./app:/app
+      - ./config:/config
+    environment:
+      - CONFIG_PATH=/config/config.yml
+    restart: unless-stopped
