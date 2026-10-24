@@ -5,11 +5,12 @@ Scapy is optional; to enable add `scapy==2.4.7` to requirements.
 """
 import subprocess
 from .models import Database
+from .config import settings
 import re
 
 class ArpDiscover:
-    def __init__(self, db_path='data/rpi_nms.db'):
-        self.db = Database(db_path)
+    def __init__(self, db_path=None):
+        self.db = Database(db_path if db_path is not None else settings.db_path)
         self.db.init_db()
 
     def _parse_arp_output(self, text):

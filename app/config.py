@@ -1,5 +1,11 @@
-from pydantic import BaseSettings, AnyHttpUrl
 from typing import Optional
+
+# Pydantic 1.x exports BaseSettings directly. Pydantic 2.x retains the v1
+# compatibility namespace so existing deployments can upgrade safely.
+try:
+    from pydantic.v1 import BaseSettings
+except ImportError:
+    from pydantic import BaseSettings
 
 class Settings(BaseSettings):
     # app

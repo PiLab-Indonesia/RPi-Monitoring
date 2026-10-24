@@ -1,0 +1,13 @@
+# Never commit real local environment settings or credentials.
+.env
+.env.*
+!.env.example
+
+# Python/test artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local SQLite databases
+*.db
+*.sqlite

@@ -7,12 +7,16 @@ A small alert rules engine:
 
 import time
 from .models import Database
+from .config import settings
 from .alerts import Alerts
 
 class AlertRules:
-    def __init__(self, db_path='data/rpi_nms.db', telegram_token=None, telegram_chat_id=None):
-        self.db = Database(db_path)
-        self.alerts = Alerts(token=telegram_token, chat_id=telegram_chat_id)
+    def __init__(self, db_path=None, telegram_token=None, telegram_chat_id=None):
+        self.db = Database(db_path if db_path is not None else settings.db_path)
+        self.alerts = Alerts(
+            token=telegram_token if telegram_token is not None else settings.telegram_token,
+            chat_id=telegram_chat_id if telegram_chat_id is not None else settings.telegram_chat_id,
+        )
         self.db.init_db()
         # ensure history table exists
         with self.db.conn() as c:
