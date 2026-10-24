@@ -2,10 +2,12 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
 import uvicorn
-from .models import Database, Device
+from .models import Database
+from .metrics import create_metrics_router
 
 app = FastAPI(title="RPi Network Monitoring System")
 db = Database('data/rpi_nms.db')
+app.include_router(create_metrics_router(db))
 
 class DeviceOut(BaseModel):
     id: int
